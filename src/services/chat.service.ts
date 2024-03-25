@@ -67,7 +67,8 @@ export class ChatService {
   }
 
   disconnect() {
-    this.stomp?.disconnect(()=>{});
+    this.stomp?.disconnect(()=>this.msgService.success("Disconnected from chat"));
+    
   }
 }
 

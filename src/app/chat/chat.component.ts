@@ -1,4 +1,4 @@
-import { Component, OnDestroy, inject } from '@angular/core';
+import { Component, ElementRef, OnDestroy, inject, viewChild } from '@angular/core';
 import { MaterialModule } from '../../modules/material.module';
 import { FormsModule } from '@angular/forms';
 import { ChatMessage, ChatService } from '../../services/chat.service';
@@ -12,24 +12,31 @@ import { Subscription, tap } from 'rxjs';
   styleUrl: './chat.component.css'
 })
 export class ChatComponent implements OnDestroy{
+  nameInputS = viewChild.required<ElementRef>('nameInput');
+  msgInputS = viewChild.required<ElementRef>('msgInput');
+
   name = '';
   chatService = inject(ChatService);
   messages: ChatMessage[] = [];
   msgToSend = '';
   messagesSubscription?: Subscription;
   greetingsSubscription?: Subscription;
+  connected = false;
 
   connect(){
-    this.chatService.connect().pipe(
-      tap(ok => {
-        if (ok) {
-          this.listenEndpoints();
-          this.chatService.sendName(this.name);
-        }
-      })
-    ).subscribe(ok => {
-      console.log("!!! Connected");
-    });
+    if (this.name) {
+      this.chatService.connect().pipe(
+        tap(ok => {
+          if (ok) {
+            this.connected = true;
+            this.listenEndpoints();
+            this.chatService.sendName(this.name);
+            setTimeout(() => this.msgInputS().nativeElement.focus(), 0);
+            console.log("!!! Connected");
+          }
+        })
+      ).subscribe();
+    }
   }
 
   listenEndpoints() {
@@ -43,6 +50,8 @@ export class ChatComponent implements OnDestroy{
 
   sendMessage() {
     this.chatService.sendMessage(this.msgToSend);
+    this.msgToSend = '';
+    setTimeout(() => this.msgInputS().nativeElement.focus(), 0);
   }
 
   disconnect() {
@@ -50,6 +59,9 @@ export class ChatComponent implements OnDestroy{
     this.greetingsSubscription?.unsubscribe();
     console.log("!!! Disconnecting");
     this.chatService.disconnect();
+    this.connected = false;
+    this.messages = [];
+    setTimeout(() => this.nameInputS().nativeElement.focus(), 0);
   }
 
   ngOnDestroy(): void {
