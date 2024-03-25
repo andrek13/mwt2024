@@ -1,3 +1,4 @@
 export const environment = {
-  serverUrl: "http://mwt.upjs.sk:8080/"
+  serverUrl: "https://mwt.upjs.sk:8080/",
+  webSocketUrl: "wss://mwt.upjs.sk:8080/",
 };

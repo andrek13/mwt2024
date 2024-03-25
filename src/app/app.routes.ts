@@ -13,6 +13,9 @@ export const routes: Routes = [
   {path: 'register', 
    loadComponent: () => import('./register/register.component')//.then(com => com.RegisterComponent)
   },
+  {path: 'chat', 
+   loadComponent: () => import('./chat/chat.component').then(com => com.ChatComponent)
+  },
   {path: 'user/edit/:id', component: EditUserComponent, data: {daco : 1}},
   {path: 'user/new', component: EditUserComponent},
   { path: 'groups', 
