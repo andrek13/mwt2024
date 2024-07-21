@@ -21,8 +21,8 @@ export class FilmsComponent implements AfterViewInit {
   userNameS = this.usersService.loggedUserSignal;
 
   columnsToDisplayS = computed(() => this.userNameS() 
-                                   ? ['id', 'nazov', 'rok', 'slovenskyNazov', 'afi1998', 'afi2007']
-                                   : ['id', 'nazov', 'rok']);
+                                   ? ['id', 'nazov', 'rok', 'slovenskyNazov', 'afi1998', 'afi2007', 'edit']
+                                   : ['id', 'nazov', 'rok', 'edit']);
   paginatorS = viewChild.required<MatPaginator>(MatPaginator);
   sortS = viewChild.required<MatSort>(MatSort);
 

@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal, viewChild } from '@angular/core';
+import { AfterViewInit, Component, computed, inject, signal, viewChild } from '@angular/core';
 import {toObservable, toSignal} from '@angular/core/rxjs-interop';
 import { Film } from '../../../entities/film';
 import { FilmsService } from '../../../services/films.service';
@@ -7,12 +7,12 @@ import { MaterialModule } from '../../material.module';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { switchMap, tap } from 'rxjs';
+import { MatColumnDef } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
-
 @Component({
-  selector: 'app-film-list',
+  selector: 'app-films-list',
   standalone: true,
-  imports: [MaterialModule, MatPaginator, MatSort, RouterModule],
+  imports: [RouterModule, MaterialModule, MatPaginator, MatSort],
   templateUrl: './film-list.component.html',
   styleUrl: './film-list.component.css'
 })

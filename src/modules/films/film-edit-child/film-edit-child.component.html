@@ -1,1 +1,93 @@
-<p>film-edit-child works!</p>
+<mat-card>
+    <form [formGroup]="editForm" (ngSubmit)="submit()">
+      <mat-form-field>
+        <mat-label>Názov</mat-label>
+        <input matInput id="nazov" formControlName="nazov" placeholder="Názov">
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Rok</mat-label>
+        <input matInput id="rok" formControlName="rok" type="number" placeholder="Rok">
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Slovenský Názov</mat-label>
+        <input matInput id="slovenskyNazov" formControlName="slovenskyNazov" placeholder="Slovenský Názov">
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>IMDB ID</mat-label>
+        <input matInput id="imdbID" formControlName="imdbID" placeholder="IMDB ID">
+      </mat-form-field>
+  
+      <div formArrayName="reziser">
+        @for(reziser of reziser.controls; track i; let i = $index) {
+          <div [formGroupName]="i">
+            <h1>Reziser</h1>
+            <mat-form-field>
+              <mat-label>Krstné Meno</mat-label>
+              <input matInput formControlName="krstneMeno" placeholder="Krstné Meno">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Stredné Meno</mat-label>
+              <input matInput formControlName="stredneMeno" placeholder="Stredné Meno">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Priezvisko</mat-label>
+              <input matInput formControlName="priezvisko" placeholder="Priezvisko">
+            </mat-form-field>
+          </div>
+    }
+      </div>
+  
+      <div formArrayName="postava">
+        @for(postava of postava.controls; track i; let i = $index) {
+          <div [formGroupName]="i">
+            <h2>Postava</h2>
+            <mat-form-field>
+              <mat-label>Postava</mat-label>
+              <input matInput formControlName="postava">
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Dôležitosť</mat-label>
+                <input matInput formControlName="dolezitost" placeholder="Dôležitosť">
+            </mat-form-field>
+
+            <h3>Herec</h3>
+            <div formGroupName="herec">
+              <mat-form-field>
+                <mat-label>Krstné Meno</mat-label>
+                <input matInput formControlName="krstneMeno" placeholder="Krstné Meno">
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Stredné Meno</mat-label>
+                <input matInput formControlName="stredneMeno" placeholder="Stredné Meno">
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Priezvisko</mat-label>
+                <input matInput formControlName="priezvisko" placeholder="Priezvisko">
+              </mat-form-field>
+            </div>
+          </div>
+        }
+      </div>
+
+      <div id="poradieVRebricku" formGroupName="poradieVRebricku">
+		<mat-form-field>
+			<mat-label>AFI 1998</mat-label>
+			<input matInput type="number" formControlName="AFI 1998">
+
+		</mat-form-field>
+
+		<mat-form-field>
+			<mat-label>AFI 2007</mat-label>
+			<input matInput type="number" formControlName="AFI 2007">
+
+		</mat-form-field>
+	</div>
+  
+      <button mat-raised-button type="submit">Save</button>
+    </form>
+  </mat-card>
+  
