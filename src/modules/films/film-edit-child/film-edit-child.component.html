@@ -1,4 +1,10 @@
-<mat-card>
+<h2>
+	@if(filmId) {
+    	Editing film {{film.nazov}}
+	} @else {
+	    Add new film
+	}
+</h2>
     <form [formGroup]="editForm" (ngSubmit)="submit()">
       <mat-form-field>
         <mat-label>Názov</mat-label>
@@ -36,9 +42,12 @@
               <mat-label>Priezvisko</mat-label>
               <input matInput formControlName="priezvisko" placeholder="Priezvisko">
             </mat-form-field>
+
+            <button (click)="removeReziser(i)">Remove</button>
           </div>
     }
       </div>
+      <button (click)="addReziser()">Add Režisér</button>
   
       <div formArrayName="postava">
         @for(postava of postava.controls; track i; let i = $index) {
@@ -68,10 +77,12 @@
                 <mat-label>Priezvisko</mat-label>
                 <input matInput formControlName="priezvisko" placeholder="Priezvisko">
               </mat-form-field>
+              <button (click)="removePostava(i)">Remove</button>
             </div>
           </div>
         }
       </div>
+      <button (click)="addPostava()">Add Postava</button>
 
       <div id="poradieVRebricku" formGroupName="poradieVRebricku">
 		<mat-form-field>
@@ -89,5 +100,4 @@
   
       <button mat-raised-button type="submit">Save</button>
     </form>
-  </mat-card>
   

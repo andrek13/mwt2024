@@ -72,13 +72,15 @@ export class FilmsService {
   // providing function saveFilm to FilmService
   saveFilm(film: Film): Observable<Film> {
     let options = this.getTokenHeader();
-    return this.http.post<Film>(this.url + 'films/' + film, options).pipe(
+    return this.http.post<Film>(this.url + 'films/', film, options).pipe(
       map(jsonFilm => Film.clone(jsonFilm)),
-      tap(film => this.messageService.success("Film " + film.nazov + " saved")),
-      tap(film => this.router.navigateByUrl("/films")),
+      tap((user) => this.messageService.success("Film " + film.nazov + " saved")),
+      tap((user) => this.router.navigateByUrl('/films')),
       catchError(err => this.usersService.processError(err))
     );
   }
+
+  
 
   // providing function deleteFilm to FilmService
   deleteFilm(id: number): Observable<boolean> {

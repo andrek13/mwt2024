@@ -25,16 +25,4 @@ export class Film {
       film.id
     );
   }
-
-  static fromFormData(formData: any): Film {
-    return new Film(
-      formData.nazov || '',
-      formData.rok || 0,
-      formData.slovenskyNazov || '',
-      formData.imdbID || '',
-      formData.reziser || '',
-      formData.postava || '',
-      formData.poradieVRebricku || 0
-    );
-  }
 }
