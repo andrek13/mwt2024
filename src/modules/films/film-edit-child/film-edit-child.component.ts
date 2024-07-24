@@ -33,8 +33,8 @@ export class FilmEditChildComponent implements OnChanges {
     ]),
     slovenskyNazov: new FormControl(''),
     imdbID: new FormControl(''),
-    reziseri: new FormArray([]),
-    postavy: new FormArray([]),
+    reziser: new FormArray([]),
+    postava: new FormArray([]),
     poradieVRebricku: new FormGroup({
       'AFI 1998': new FormControl(null, Validators.min(1)),
       'AFI 2007': new FormControl(null, Validators.min(1)),
@@ -60,13 +60,13 @@ export class FilmEditChildComponent implements OnChanges {
       poradieVRebricku: film.poradieVRebricku,
     });
 
-    const reziserArray = this.editForm.get('reziseri') as FormArray;
+    const reziserArray = this.editForm.get('reziser') as FormArray;
     reziserArray.clear();
     film.reziser.forEach((person) => {
       reziserArray.push(this.createPersonFormGroup(person));
     });
 
-    const postavaArray = this.editForm.get('postavy') as FormArray;
+    const postavaArray = this.editForm.get('postava') as FormArray;
     postavaArray.clear();
     film.postava.forEach((postava) => {
       postavaArray.push(this.createPostavaFormGroup(postava));
@@ -97,9 +97,9 @@ export class FilmEditChildComponent implements OnChanges {
     this.film.slovenskyNazov = this.slovenskyNazov.value.trim();
     this.film.imdbID = this.imdbID.value.trim();
     this.film.poradieVRebricku = this.poradieVRebricku.value;
-    const reziserArray = this.editForm.get('reziseri') as FormArray;
+    const reziserArray = this.editForm.get('reziser') as FormArray;
     this.film.reziser = reziserArray.controls.map((control) => control.value);
-    const postavaArray = this.editForm.get('postavy') as FormArray;
+    const postavaArray = this.editForm.get('postava') as FormArray;
     this.film.postava = postavaArray.controls.map((control) => control.value);
     const poradie = this.editForm.get('poradieVRebricku') as FormGroup;
     const afi1998Control = poradie.get('AFI 1998');
@@ -119,28 +119,6 @@ export class FilmEditChildComponent implements OnChanges {
     }
   }
 
-  addReziser(): void {
-    const reziseri = this.editForm.get('reziseri') as FormArray;
-    const emptyPerson: Person = { krstneMeno: '', stredneMeno: '', priezvisko: '' };
-    reziseri.push(this.createPersonFormGroup(emptyPerson));
-  }
-  
-  removeReziser(index: number): void {
-    const reziseri = this.editForm.get('reziseri') as FormArray;
-    reziseri.removeAt(index);
-  }
-  
-  addPostava(): void {
-    const postavy = this.editForm.get('postavy') as FormArray;
-    const emptyPostava: Postava = { postava: '', dolezitost: "hlavná postava" , herec: { krstneMeno: '', stredneMeno: '', priezvisko: '' } };
-    postavy.push(this.createPostavaFormGroup(emptyPostava));
-  }
-  
-  removePostava(index: number): void {
-    const postavy = this.editForm.get('postavy') as FormArray;
-    postavy.removeAt(index);
-  }
-
 
   get nazov(): FormControl {
     return this.editForm.get('nazov') as FormControl;
@@ -155,10 +133,10 @@ export class FilmEditChildComponent implements OnChanges {
     return this.editForm.get('imdbID') as FormControl;
   }
   get reziser(): FormArray {
-    return this.editForm.get('reziseri') as FormArray;
+    return this.editForm.get('reziser') as FormArray;
   }
   get postava(): FormArray {
-    return this.editForm.get('postavy') as FormArray;
+    return this.editForm.get('postava') as FormArray;
   }
   get poradieVRebricku(): FormGroup {
     return this.editForm.get('poradieVRebricku') as FormGroup;
